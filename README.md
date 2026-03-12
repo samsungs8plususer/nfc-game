@@ -29,3 +29,7 @@ this was only tested on android, not sure if this works on ios, if not please te
 This was built with HTML and Github Pages.
 
 NOTE:THIS WILL OPEN NEW TABS EVERY TAP ON THE NFC CARD/TAG!!!
+
+Have a Feature Request?
+I am constantly looking for ways to improve the game! If you have a cool idea for a new game mode or a feature you think would make the experience better, please open an Issue in this repository.
+Note: Please do not attempt to modify or fork the source code to add these features yourself. All development and code modifications are handled exclusively by the author. If you have an idea, let me know, and I’ll consider adding it to the official version!
