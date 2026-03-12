@@ -6,105 +6,111 @@
     <title>NFC Catch & Dash</title>
     <style>
         body {
-            background: #0a0a1a;
-            background-image: 
-                linear-gradient(rgba(0, 242, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 242, 255, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px;
-            animation: moveGrid 5s linear infinite;
+            background: #050510;
             color: #00f2ff;
-            font-family: sans-serif;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100vh; margin: 0; overflow: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            /* Animated Neon Grid */
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.15) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 8s linear infinite;
         }
 
-        @keyframes moveGrid { from { background-position: 0 0; } to { background-position: 40px 40px; } }
+        @keyframes moveGrid {
+            from { background-position: 0 0; }
+            to { background-position: 50px 50px; }
+        }
 
         .game-box {
-            text-align: center; border: 4px solid #00f2ff;
-            padding: 50px 30px; border-radius: 25px;
-            box-shadow: 0 0 20px #00f2ff; background: rgba(10, 10, 26, 0.9);
-            min-width: 260px;
+            text-align: center;
+            border: 3px solid #00f2ff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.4);
+            background: rgba(5, 5, 16, 0.85);
+            backdrop-filter: blur(8px);
         }
 
-        #p-score { font-size: 120px; font-weight: 900; margin: 10px 0; text-shadow: 0 0 15px #00f2ff; }
-        #p-name { color: #ff00ff; letter-spacing: 2px; text-shadow: 0 0 10px #ff00ff; }
+        #p-name { font-size: 1.5rem; color: #ff00ff; text-shadow: 0 0 10px #ff00ff; font-weight: bold; }
+        #p-score { font-size: 120px; font-weight: 900; margin: 5px 0; }
+        #msg { font-size: 1rem; color: #00ff99; text-transform: uppercase; letter-spacing: 2px; }
         
-        .win { border-color: #ff0055; color: #ff0055; box-shadow: 0 0 40px #ff0055; }
+        .winner-mode {
+            border-color: #ff0055 !important;
+            color: #ff0055 !important;
+            box-shadow: 0 0 50px #ff0055 !important;
+            animation: pulse 1.5s infinite;
+        }
 
-        button {
-            margin-top: 20px; background: transparent; border: 1px solid #ff4444;
-            color: #ff4444; padding: 10px; border-radius: 5px; cursor: pointer;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
-        
-        #start-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0a0a1a; display: flex; justify-content: center;
-            align-items: center; z-index: 100;
-        }
-        .start-btn {
-            padding: 20px 40px; font-size: 20px; color: #00f2ff;
-            border: 2px solid #00f2ff; background: transparent; border-radius: 50px;
+
+        .btn-reset {
+            margin-top: 25px;
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid #ff4444;
+            color: #ff4444;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <div id="start-overlay">
-        <button class="start-btn" onclick="initGame()">TAP TO JOIN GAME</button>
-    </div>
-
     <div id="game-container" class="game-box">
-        <div id="p-name">PLAYER</div>
+        <div id="p-name">LOADING...</div>
         <div id="p-score">0</div>
-        <div id="msg">SCAN COMPLETE!</div>
-        <button onclick="clearData()">WIPE MY SCORE</button>
+        <div id="msg">POINT ADDED!</div>
+        <button class="btn-reset" onclick="resetScore()">Wipe My Score</button>
     </div>
 
     <script>
-        function initGame() {
-            // Hide overlay and start audio
-            document.getElementById('start-overlay').style.display = 'none';
-            
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            function beep(freq, dur) {
-                const osc = audioCtx.createOscillator();
-                const g = audioCtx.createGain();
-                osc.connect(g); g.connect(audioCtx.destination);
-                osc.frequency.value = freq; g.gain.value = 0.1;
-                osc.start(); osc.stop(audioCtx.currentTime + dur);
-            }
+        // No "init" function needed - it runs immediately on load!
+        
+        let user = localStorage.getItem('nfc_user');
+        let pts = parseInt(localStorage.getItem('nfc_pts')) || 0;
 
-            let user = localStorage.getItem('nfc_user');
-            let pts = parseInt(localStorage.getItem('nfc_pts')) || 0;
-
-            if (!user) {
-                user = prompt("Enter Name:");
-                if (!user) user = "Ninja";
-                localStorage.setItem('nfc_user', user);
-            }
-
-            document.getElementById('p-name').innerText = user.toUpperCase();
-            pts++;
-
-            const box = document.getElementById('game-container');
-            const scoreDisplay = document.getElementById('p-score');
-
-            if (pts >= 10) {
-                scoreDisplay.innerText = "10";
-                box.classList.add('win');
-                document.getElementById('p-name').innerText = "🏆 WINNER";
-                localStorage.setItem('nfc_pts', 10);
-                beep(500, 0.2); setTimeout(() => beep(800, 0.4), 200);
-            } else {
-                localStorage.setItem('nfc_pts', pts);
-                scoreDisplay.innerText = pts;
-                beep(400, 0.1);
-            }
+        // Only prompts for name if it's the very first time
+        if (!user) {
+            user = prompt("Enter Player Name:");
+            if (!user) user = "NFC_Player";
+            localStorage.setItem('nfc_user', user);
         }
 
-        function clearData() {
-            if (confirm("Reset?")) {
+        document.getElementById('p-name').innerText = user.toUpperCase();
+        
+        // Auto-increment score
+        pts++;
+        const scoreDisplay = document.getElementById('p-score');
+        const container = document.getElementById('game-container');
+
+        if (pts >= 10) {
+            scoreDisplay.innerText = "10";
+            container.classList.add('winner-mode');
+            document.getElementById('p-name').innerText = "🏆 WINNER";
+            document.getElementById('msg').innerText = "GAME COMPLETE";
+            localStorage.setItem('nfc_pts', 10);
+        } else {
+            localStorage.setItem('nfc_pts', pts);
+            scoreDisplay.innerText = pts;
+        }
+
+        function resetScore() {
+            if (confirm("Reset your score to zero?")) {
                 localStorage.clear();
                 location.reload();
             }
