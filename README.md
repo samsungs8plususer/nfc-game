@@ -24,3 +24,5 @@ Thanks for playing! Created by Samsungs8+userr
 this was only tested on android, not sure if this works on ios, if not please tell me.
 
 This was built with HTML and Github Pages.
+
+NOTE:THIS WILL OPEN NEW TABS EVERY TAP ON THE NFC CARD/TAG!!!
