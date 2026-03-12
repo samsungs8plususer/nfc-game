@@ -87,7 +87,7 @@
         // Only prompts for name if it's the very first time
         if (!user) {
             user = prompt("Enter Player Name:");
-            if (!user) user = "NFC_Player";
+            if (!user) user = "Player";
             localStorage.setItem('nfc_user', user);
         }
 
@@ -101,7 +101,7 @@
         if (pts >= 10) {
             scoreDisplay.innerText = "10";
             container.classList.add('winner-mode');
-            document.getElementById('p-name').innerText = "🏆 WINNER";
+            document.getElementById('p-name').innerText = "YOU WIN!🏆 ";
             document.getElementById('msg').innerText = "GAME COMPLETE";
             localStorage.setItem('nfc_pts', 10);
         } else {
@@ -110,7 +110,7 @@
         }
 
         function resetScore() {
-            if (confirm("Reset your score to zero?")) {
+            if (confirm("Reset your score to zero? WARNING:WILL RESET YOUR NAME!")) {
                 localStorage.clear();
                 location.reload();
             }
