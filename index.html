@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC Catch & Dash</title>
+    <style>
+        body {
+            background: #050505;
+            color: #00f2ff;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #reset-btn {
+            position: absolute;
+            top: 20px;
+            background: rgba(255, 68, 68, 0.1);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .game-box {
+            text-align: center;
+            border: 3px solid #00f2ff;
+            padding: 50px 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+            background: #0a0a0a;
+            min-width: 250px;
+        }
+
+        #p-name {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            color: #ff00ff;
+            margin-bottom: 5px;
+        }
+
+        #p-score {
+            font-size: 110px;
+            line-height: 1;
+            margin: 15px 0;
+            font-weight: 900;
+        }
+
+        #msg {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .winner-theme {
+            border-color: #ff0055 !important;
+            box-shadow: 0 0 40px rgba(255, 0, 85, 0.5) !important;
+            color: #ff0055 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="reset-btn" onclick="clearData()">WIPE SCORE</button>
+
+    <div id="game-container" class="game-box">
+        <div id="p-name">---</div>
+        <div id="p-score">0</div>
+        <div id="msg">READY TO SCAN</div>
+    </div>
+
+    <script>
+        let user = localStorage.getItem('nfc_user');
+        let pts = parseInt(localStorage.getItem('nfc_pts')) || 0;
+
+        if (!user) {
+            user = prompt("Player Name:");
+            if (!user) user = "Ninja";
+            localStorage.setItem('nfc_user', user);
+        }
+
+        document.getElementById('p-name').innerText = user.toUpperCase();
+
+        pts++;
+        const box = document.getElementById('game-container');
+        const scoreDisplay = document.getElementById('p-score');
+        const statusMsg = document.getElementById('msg');
+
+        if (pts >= 10) {
+            scoreDisplay.innerText = "10";
+            box.classList.add('winner-theme');
+            document.getElementById('p-name').innerText = "🏆 WINNER";
+            statusMsg.innerText = "GAME COMPLETE";
+            localStorage.setItem('nfc_pts', 10);
+        } else {
+            localStorage.setItem('nfc_pts', pts);
+            scoreDisplay.innerText = pts;
+            statusMsg.innerText = "POINT ADDED!";
+        }
+
+        function clearData() {
+            if (confirm("Reset your own progress?")) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+    </script>
+</body>
+  </html>
+  
