@@ -20,4 +20,7 @@ The Score: Each successful tap gives you +1 Point.
 Winning: The first player to hit 10 Points wins!
 Reset: Once a winner is crowned, everyone should press the "Wipe My Score" button to start a new round.
 Thanks for playing! Created by Samsungs8+userr
+
 this was only tested on android, not sure if this works on ios, if not please tell me.
+
+This was built with HTML and Github Pages.
