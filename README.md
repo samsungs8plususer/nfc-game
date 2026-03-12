@@ -18,5 +18,5 @@ The Toss: One player holds the NFC card and counts down from 3. On "1," they thr
 The Dash: Everyone runs to find and tap the card with their phone.
 The Score: Each successful tap gives you +1 Point.
 Winning: The first player to hit 10 Points wins!
-Reset: Once a winner is crowned, everyone else should press the "Wipe Score" button to start a new round.
+Reset: Once a winner is crowned, everyone should press the "Wipe My Score" button to start a new round.
 Thanks for playing! Created by Samsungs8+userr
