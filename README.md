@@ -8,7 +8,7 @@ You MUST have a rewriteable and compatible NFC card (like an NTAG213 or NTAG215)
 Download: Get the NFC Tools app on Android or iOS.
 Record: Go to the Write tab and select Add a record.
 Link: Select URL / URI.
-Paste: Copy your GitHub Pages link and paste it into the textbox.
+Paste: Copy your GitHub Pages link which is this "https://samsungs8plususer.github.io/nfc-game/" and paste it into the textbox.
 Write: Press OK, then press Write and tap your NFC card to save the game!
 Tip: You can also add custom text or images if you want! :D
 
