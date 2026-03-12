@@ -19,7 +19,9 @@ The Dash: Everyone runs to find and tap the card with their phone.
 The Score: Each successful tap gives you +1 Point.
 Winning: The first player to hit 10 Points wins!
 Reset: Once a winner is crowned, everyone should press the "Wipe My Score" button to start a new round.
+
 (Btw you could add your own rules for your round or make it a different game like for example: Find the NFC card/tag! BUT! you CANNOT grab my html and rewrite it or copy it without my permission.)
+
 Thanks for playing! Created by Samsungs8+userr
 
 this was only tested on android, not sure if this works on ios, if not please tell me.
