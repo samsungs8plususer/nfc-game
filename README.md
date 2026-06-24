@@ -25,7 +25,12 @@ Reset: Once a winner is crowned, everyone should press the "Wipe My Score" butto
 
 (Btw you could add your own rules for your round or make it a different game like for example: Find the NFC card/tag! BUT! you CANNOT grab my html and rewrite it or copy it without my permission.)
 
-Thanks for playing! Created by Samsungs8+userr
+❓ How it Works 
+
+After you type your name in the website saves it as a cookie and after you hit wipe my score it resets the cookie (I think) and also to add up a score it works by detecting when the website refreshes and that adds up a score saving also to the cookie.
+
+
+Thanks for playing! Created by Samsungs8plususerr
 
 this was only tested on android, not sure if this works on ios, if not please tell me.
 
